@@ -53,7 +53,7 @@ export class MainView extends React.Component {
     const { movies, selectedMovie, user } = this.state;
 
     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-    // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
     // Before the movies have been loaded
     if (!movies) return <div className="main-view" />;
@@ -87,7 +87,7 @@ export class MainView extends React.Component {
                 placeholder="Search"
                 className="mr-sm-2"
               />
-              <Button variant="outline-success">Search</Button>
+              <Button variant="outline-dark">Search</Button>
             </Form>
           </Navbar.Collapse>
         </Navbar>

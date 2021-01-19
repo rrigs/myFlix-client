@@ -33217,6 +33217,7 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
           movie = _this$props.movie,
           _onClick = _this$props.onClick;
       return _react.default.createElement(_Card.default, {
+        className: "text-center",
         style: {
           width: '16rem'
         }
@@ -33227,7 +33228,7 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
         onClick: function onClick() {
           return _onClick(movie);
         },
-        variant: "link"
+        variant: "dark"
       }, "Open")));
     }
   }]);
@@ -33253,6 +33254,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.MovieView = void 0;
 
 var _react = _interopRequireDefault(require("react"));
+
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33301,40 +33306,51 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var movie = this.props.movie;
       if (!movie) return null;
-      return _react.default.createElement("div", {
-        className: "movie-view"
-      }, _react.default.createElement("img", {
-        className: "movie-poster",
+      return _react.default.createElement(_Card.default, {
+        className: "text-center"
+      }, _react.default.createElement(_Card.default.Img, {
+        variant: "top",
         src: movie.ImagePath
-      }), _react.default.createElement("div", {
-        className: "movie-title"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Title: "), _react.default.createElement("span", {
-        className: "value"
-      }, movie.Title)), _react.default.createElement("div", {
-        className: "movie-description"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Description: "), _react.default.createElement("span", {
-        className: "value"
-      }, movie.Description)), _react.default.createElement("div", {
-        className: "movie-genre"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Genre: "), _react.default.createElement("span", {
-        className: "value"
-      }, movie.Genre.Name)), _react.default.createElement("div", {
-        className: "movie-director"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Director: "), _react.default.createElement("span", {
-        className: "value"
-      }, movie.Director.Name)), _react.default.createElement("button", {
-        onClick: this.refreshPage
-      }, "Go Back"));
+      }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_Card.default.Text, null, "Genre: ", movie.Genre.Name), _react.default.createElement(_Card.default.Text, null, "Director: ", movie.Director.Name), _react.default.createElement(_Button.default, {
+        onClick: function (_onClick) {
+          function onClick() {
+            return _onClick.apply(this, arguments);
+          }
+
+          onClick.toString = function () {
+            return _onClick.toString();
+          };
+
+          return onClick;
+        }(function () {
+          return onClick(_this2.refreshPage);
+        }),
+        variant: "outline-danger"
+      }, "Go Back"))); //   <div className="movie-view">
+      //     <img className="movie-poster" src={movie.ImagePath} />
+      //     <div className="movie-title">
+      //       <span className="label">Title: </span>
+      //       <span className="value">{movie.Title}</span>
+      //     </div>
+      //     <div className="movie-description">
+      //       <span className="label">Description: </span>
+      //       <span className="value">{movie.Description}</span>
+      //     </div>
+      //     <div className="movie-genre">
+      //       <span className="label">Genre: </span>
+      //       <span className="value">{movie.Genre.Name}</span>
+      //     </div>
+      //     <div className="movie-director">
+      //       <span className="label">Director: </span>
+      //       <span className="value">{movie.Director.Name}</span>
+      //     </div>
+      //     <button onClick={this.refreshPage}>Go Back</button>
+      //   </div>
+      // );
     }
   }]);
 
@@ -33342,7 +33358,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.MovieView = MovieView;
-},{"react":"../node_modules/react/index.js"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -48068,8 +48084,12 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           selectedMovie = _this$state.selectedMovie,
           user = _this$state.user;
       /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-      // if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-      // Before the movies have been loaded
+
+      if (!user) return _react.default.createElement(_loginView.LoginView, {
+        onLoggedIn: function onLoggedIn(user) {
+          return _this3.onLoggedIn(user);
+        }
+      }); // Before the movies have been loaded
 
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
@@ -48107,7 +48127,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         placeholder: "Search",
         className: "mr-sm-2"
       }), _react.default.createElement(_reactBootstrap.Button, {
-        variant: "outline-success"
+        variant: "outline-dark"
       }, "Search")))), _react.default.createElement(_reactBootstrap.Row, {
         className: "main-view justify-content-md-center"
       }, selectedMovie ? _react.default.createElement(_reactBootstrap.Col, {
@@ -48301,7 +48321,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63478" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49673" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
