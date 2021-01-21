@@ -1,6 +1,7 @@
 import React from "react";
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 export class MovieView extends React.Component {
   constructor() {
@@ -18,17 +19,23 @@ export class MovieView extends React.Component {
     if (!movie) return null;
 
     return (
-        <Card className="text-center">
-          <Card.Img variant="top" src={movie.ImagePath} />
-          <Card.Body>
-            <Card.Title>{movie.Title}</Card.Title>
+      <Card className="text-center">
+        <Card.Img variant="top" src={movie.ImagePath} />
+        <Card.Body>
+          <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Description}</Card.Text>
           <Card.Text>Genre: {movie.Genre.Name}</Card.Text>
           <Card.Text>Director: {movie.Director.Name}</Card.Text>
-            <Button onClick={() => onClick(this.refreshPage)} variant="outline-danger">Go Back</Button>
-          </Card.Body>
-        </Card>
-      );
+          <Link to={`/directors/${movie.Director.Name}`}>
+            <Button variant="link">Director</Button>
+          </Link>
+
+          <Link to={`/genres/${movie.Genre.Name}`}>
+            <Button variant="link">Genre</Button>
+          </Link>
+        </Card.Body>
+      </Card>
+    );
     //   <div className="movie-view">
     //     <img className="movie-poster" src={movie.ImagePath} />
     //     <div className="movie-title">

@@ -1,10 +1,22 @@
 import React from "react";
 import axios from "axios";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
-import { Col, Row, Navbar, Nav, NavDropdown, Form, FormControl, Button } from "react-bootstrap";
+import { DirectorView } from "../director-view/director-view";
+import { GenreView } from "../genre-view/genre-view";
+import {
+  Col,
+  Row,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Form,
+  FormControl,
+  Button,
+} from "react-bootstrap";
 
 export class MainView extends React.Component {
   constructor() {
@@ -20,12 +32,13 @@ export class MainView extends React.Component {
     };
   }
 
-  // One of the "hooks" available in a React Component
-  componentDidMount() {
+  getMovies(token) {
     axios
-      .get("https://my-flix-db-app.herokuapp.com/movies")
+      .get("https://my-flix-db-app.herokuapp.com/movies", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
-        // Assign the result to the state
+        //Assign the result to the state
         this.setState({
           movies: response.data,
         });
@@ -35,16 +48,32 @@ export class MainView extends React.Component {
       });
   }
 
+  // One of the "hooks" available in a React Component
+  componentDidMount() {
+    let accessToken = localStorage.getItem("token");
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem("user"),
+      });
+      this.getMovies(accessToken);
+    }
+  }
+
   onMovieClick(movie) {
     this.setState({
       selectedMovie: movie,
     });
   }
 
-  onLoggedIn(user) {
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      user,
+      user: authData.user.Username,
     });
+
+    localStorage.setItem("token", authData.token);
+    localStorage.setItem("user", authData.user.Username);
+    this.getMovies(authData.token);
   }
 
   render() {
@@ -53,65 +82,93 @@ export class MainView extends React.Component {
     const { movies, selectedMovie, user } = this.state;
 
     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    if (!user)
+      return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
 
     // Before the movies have been loaded
     if (!movies) return <div className="main-view" />;
 
     return (
-      <div>
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-            <Form inline>
-              <FormControl
-                type="text"
-                placeholder="Search"
-                className="mr-sm-2"
-              />
-              <Button variant="outline-dark">Search</Button>
-            </Form>
-          </Navbar.Collapse>
-        </Navbar>
-        <Row className="main-view justify-content-md-center">
-          {selectedMovie ? (
-            <Col md={8} style={{ border: "1px solid black" }}>
-              <MovieView
-                movie={selectedMovie}
-                onBackClick={(movie) => this.onMovieClick(null)}
-              />
-            </Col>
-          ) : (
-            movies.map((movie) => (
-              <Col md={3}>
-                <MovieCard
-                  key={movie._id}
-                  movie={movie}
-                  onClick={(movie) => this.onMovieClick(movie)}
+      <Router>
+        <div>
+          <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="#link">Link</Nav.Link>
+                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.2">
+                    Another action
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#action/3.3">
+                    Something
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action/3.4">
+                    Separated link
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+              <Form inline>
+                <FormControl
+                  type="text"
+                  placeholder="Search"
+                  className="mr-sm-2"
                 />
-              </Col>
-            ))
-          )}
-        </Row>
-      </div>
+                <Button variant="outline-dark">Search</Button>
+              </Form>
+            </Navbar.Collapse>
+          </Navbar>
+          <div className="main-view">
+            <Route
+              exact
+              path="/"
+              render={() =>
+                movies.map((m) => <MovieCard key={m._id} movie={m} />)
+              }
+            />
+            <Route
+              path="/movies/:movieId"
+              render={({ match }) => (
+                <MovieView
+                  movie={movies.find((m) => m._id === match.params.movieId)}
+                />
+              )}
+            />
+            <Route
+              path="/directors/:name"
+              render={({ match }) => {
+                if (!movies) return <div className="main-view" />;
+                return (
+                  <DirectorView
+                    director={
+                      movies.find((m) => m.Director.Name === match.params.name)
+                    }
+                    movies={movies}
+                  />
+                );
+              }}
+            />
+            <Route
+              path="/genres/:name"
+              render={({ match }) => {
+                if (!movies) return <div className="main-view" />;
+                return (
+                  <GenreView
+                    genre={
+                      movies.find((m) => m.Genre.Name === match.params.name)
+                    }
+                    movies= {movies}
+                  />
+                );
+              }}
+            />
+          </div>
+        </div>
+      </Router>
     );
   }
 }

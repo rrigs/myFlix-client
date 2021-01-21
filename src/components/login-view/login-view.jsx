@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import axios from "axios";
 
 export function LoginView(props) {
   const [username, setUsername] = useState("");
@@ -6,32 +8,44 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    /* Send a request to the server for authentication */
-    props.onLoggedIn(username);
+  /* Send a request to the server for authentication */
+    axios.post("https://my-flix-db-app.herokuapp.com/login", {
+      Username: username,
+      Password: password
+    })
+      .then(response => {
+        const data = response.data;
+        props.onLoggedIn(data);
+      })
+      .catch(e => {
+        console.log("no such user")
+      });
   };
 
   return (
-    <form>
-      <label>
-        Username:
-        <input
+    <Form>
+      <Form.Group controlId="formBasicUsername">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
           type="text"
+          placeholder="Enter username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-      </label>
-      <label>
-        Password:
-        <input
+      </Form.Group>
+
+      <Form.Group controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
           type="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-      </label>
-      <button type="button" onClick={handleSubmit}>
-        Submit
-      </button>
-    </form>
+      </Form.Group>
+      <Button variant="outline-dark" type="submit" onClick={handleSubmit}>
+        Login
+      </Button>
+    </Form>
   );
 }
