@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
+import { ProfileView } from "../profile-view/profile-view";
+import { RegistrationView } from "../registration-view/registration-view";
 import { DirectorView } from "../director-view/director-view";
 import { GenreView } from "../genre-view/genre-view";
 import {
@@ -17,6 +19,7 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 
 export class MainView extends React.Component {
   constructor() {
@@ -26,9 +29,9 @@ export class MainView extends React.Component {
 
     // Initialize the state to an empty object so we can destructure it later
     this.state = {
-      movies: null,
-      selectedMovie: null,
-      user: null,
+      movies: [],
+      selectedMovie: "",
+      user: "",
     };
   }
 
@@ -76,17 +79,21 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
+  logOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('id');
+    this.setState({
+      user: null,
+    });
+  }
+
   render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
     const { movies, selectedMovie, user } = this.state;
 
     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-    if (!user)
-      return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />;
-
-    // Before the movies have been loaded
-    if (!movies) return <div className="main-view" />;
 
     return (
       <Router>
@@ -112,6 +119,30 @@ export class MainView extends React.Component {
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
+              {!user ? (
+                <ul>
+                  <Link to={`/`}>
+                    <Button variant="link">login</Button>
+                  </Link>
+                  <Link to={`/register`}>
+                    <Button variant="link">Register</Button>
+                  </Link>
+                </ul>
+              ) : (
+                <ul>
+                  <Link to={`/`}>
+                    <Button variant="link" onClick={() => this.logOut()}>
+                      Log out
+                    </Button>
+                  </Link>
+                  <Link to={`/users/${user}`}>
+                    <Button variant="link">Account</Button>
+                  </Link>
+                  <Link to={`/`}>
+                    <Button variant="link">Movies</Button>
+                  </Link>
+                </ul>
+              )}
               <Form inline>
                 <FormControl
                   type="text"
@@ -126,9 +157,13 @@ export class MainView extends React.Component {
             <Route
               exact
               path="/"
-              render={() =>
-                movies.map((m) => <MovieCard key={m._id} movie={m} />)
-              }
+              render={() => {
+                if (!user)
+                  return (
+                    <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                  );
+                return movies.map((m) => <MovieCard key={m._id} movie={m} />)
+              }}
             />
             <Route
               path="/movies/:movieId"
@@ -138,6 +173,7 @@ export class MainView extends React.Component {
                 />
               )}
             />
+            <Route path="/register" render={() => <RegistrationView />} />
             <Route
               path="/directors/:name"
               render={({ match }) => {
@@ -152,6 +188,12 @@ export class MainView extends React.Component {
                 );
               }}
             />
+            <Route
+            path="/users/:userId"
+            render={() => (
+              <ProfileView movies={movies} logOutFunc={() => this.logOut()} />
+            )}
+          />
             <Route
               path="/genres/:name"
               render={({ match }) => {
