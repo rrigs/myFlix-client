@@ -2,6 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export class MovieView extends React.Component {
   constructor() {
@@ -9,8 +10,27 @@ export class MovieView extends React.Component {
 
     this.state = {};
   }
-  refreshPage() {
-    window.location.reload(false);
+
+  addFavorite(movie) {
+    let token = localStorage.getItem("token");
+    let url =
+      "https://my-flix-db-app.herokuapp.com/users/" +
+      localStorage.getItem("user") +
+      "/movies/" +
+      movie._id;
+
+    console.log(token);
+
+    axios
+      .post(url, "", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        console.log(response);
+        // window.open("/", "_self");
+        window.open("/users/" + localStorage.getItem("user"), "_self");
+        // alert("Added to favorites!");
+      });
   }
 
   render() {
@@ -33,6 +53,15 @@ export class MovieView extends React.Component {
           <Link to={`/genres/${movie.Genre.Name}`}>
             <Button variant="link">Genre</Button>
           </Link>
+          <div>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => this.addFavorite(movie)}
+            >
+              Add to Favorites
+            </Button>
+          </div>
         </Card.Body>
       </Card>
     );

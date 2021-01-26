@@ -9,6 +9,7 @@ import { ProfileView } from "../profile-view/profile-view";
 import { RegistrationView } from "../registration-view/registration-view";
 import { DirectorView } from "../director-view/director-view";
 import { GenreView } from "../genre-view/genre-view";
+import { ProfileUpdate } from "../profile-update/profile-update";
 import {
   Col,
   Row,
@@ -19,7 +20,7 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export class MainView extends React.Component {
   constructor() {
@@ -80,9 +81,9 @@ export class MainView extends React.Component {
   }
 
   logOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('id');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("id");
     this.setState({
       user: null,
     });
@@ -162,7 +163,7 @@ export class MainView extends React.Component {
                   return (
                     <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                   );
-                return movies.map((m) => <MovieCard key={m._id} movie={m} />)
+                return movies.map((m) => <MovieCard key={m._id} movie={m} />);
               }}
             />
             <Route
@@ -180,30 +181,36 @@ export class MainView extends React.Component {
                 if (!movies) return <div className="main-view" />;
                 return (
                   <DirectorView
-                    director={
-                      movies.find((m) => m.Director.Name === match.params.name)
-                    }
+                    director={movies.find(
+                      (m) => m.Director.Name === match.params.name
+                    )}
                     movies={movies}
                   />
                 );
               }}
             />
             <Route
-            path="/users/:userId"
-            render={() => (
-              <ProfileView movies={movies} logOutFunc={() => this.logOut()} />
-            )}
-          />
+              path="/users/:userId"
+              render={() => (
+                <ProfileView movies={movies} logOutFunc={() => this.logOut()} />
+              )}
+            />
+            <Route
+              path="/update/:userId"
+              render={() => {
+                return <ProfileUpdate />;
+              }}
+            />
             <Route
               path="/genres/:name"
               render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
                 return (
                   <GenreView
-                    genre={
-                      movies.find((m) => m.Genre.Name === match.params.name)
-                    }
-                    movies= {movies}
+                    genre={movies.find(
+                      (m) => m.Genre.Name === match.params.name
+                    )}
+                    movies={movies}
                   />
                 );
               }}
