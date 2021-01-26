@@ -36290,8 +36290,9 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
       }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_reactRouterDom.Link, {
         to: "/movies/".concat(movie._id)
       }, _react.default.createElement(_Button.default, {
-        variant: "link"
-      }, "Open"))));
+        variant: "dark",
+        size: "lg"
+      }, "More Info"))));
     }
   }]);
 
@@ -36398,13 +36399,15 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_Card.default.Text, null, "Genre: ", movie.Genre.Name), _react.default.createElement(_Card.default.Text, null, "Director: ", movie.Director.Name), _react.default.createElement(_reactRouterDom.Link, {
         to: "/directors/".concat(movie.Director.Name)
       }, _react.default.createElement(_Button.default, {
-        variant: "link"
+        variant: "outline-dark",
+        size: "sm"
       }, "Director")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/genres/".concat(movie.Genre.Name)
       }, _react.default.createElement(_Button.default, {
-        variant: "link"
+        variant: "outline-dark",
+        size: "sm"
       }, "Genre")), _react.default.createElement("div", null, _react.default.createElement(_Button.default, {
-        variant: "primary",
+        variant: "outline-info",
         size: "sm",
         onClick: function onClick() {
           return _this2.addFavorite(movie);
@@ -51355,13 +51358,17 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         }, _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Img, {
           variant: "top",
           src: movie.ImagePath
-        }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_reactRouterDom.Link, {
+        }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_reactRouterDom.Link, {
           to: "/movies/".concat(movie._id)
-        }, _react.default.createElement(_Card.default.Title, null, movie.Title)))), _react.default.createElement(_Button.default, {
+        }, _react.default.createElement(_Button.default, {
+          variant: "dark",
+          size: "lg"
+        }, "More Info")))), _react.default.createElement(_Button.default, {
+          variant: "outline-danger",
           onClick: function onClick() {
             return _this4.removeFavorite(movie);
           }
-        }, "Remove"));
+        }, "Remove from Favorites"));
       }))))));
     }
   }]);
@@ -51659,8 +51666,7 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
           }, _react.default.createElement(_reactRouterDom.Link, {
             to: "/movies/".concat(movie._id)
           }, _react.default.createElement(_Button.default, {
-            variant: "link",
-            className: "read-more-link pl-0"
+            variant: "outline-dark"
           }, "Read more")))));
         }
       }))));
@@ -51794,8 +51800,7 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
           }, _react.default.createElement(_reactRouterDom.Link, {
             to: "/movies/".concat(movie._id)
           }, _react.default.createElement(_Button.default, {
-            variant: "link",
-            className: "read-more-link pl-0"
+            variant: "outline-dark"
           }, "Read more")))));
         }
       }))));
@@ -52165,11 +52170,12 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
 
       return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", null, _react.default.createElement(_reactBootstrap.Navbar, {
-        bg: "light",
+        bg: "dark",
+        variant: "dark",
         expand: "lg"
       }, _react.default.createElement(_reactBootstrap.Navbar.Brand, {
         href: "#home"
-      }, "React-Bootstrap"), _react.default.createElement(_reactBootstrap.Navbar.Toggle, {
+      }, "myFlix"), _react.default.createElement(_reactBootstrap.Navbar.Toggle, {
         "aria-controls": "basic-navbar-nav"
       }), _react.default.createElement(_reactBootstrap.Navbar.Collapse, {
         id: "basic-navbar-nav"
@@ -52193,34 +52199,34 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, "Separated link"))), !user ? _react.default.createElement("ul", null, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "link"
-      }, "login")), _react.default.createElement(_reactRouterDom.Link, {
+        variant: "outline-light"
+      }, "Login")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/register"
       }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "link"
+        variant: "outline-light"
       }, "Register"))) : _react.default.createElement("ul", null, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "link",
+        variant: "outline-light",
         onClick: function onClick() {
           return _this3.logOut();
         }
       }, "Log out")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/users/".concat(user)
       }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "link"
+        variant: "outline-light"
       }, "Account")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "link"
-      }, "Movies"))), _react.default.createElement(_reactBootstrap.Form, {
+        variant: "outline-light"
+      }, "Movies"))), _react.default.createElement("ul", null), _react.default.createElement(_reactBootstrap.Form, {
         inline: true
       }, _react.default.createElement(_reactBootstrap.FormControl, {
         type: "text",
         placeholder: "Search",
         className: "mr-sm-2"
       }), _react.default.createElement(_reactBootstrap.Button, {
-        variant: "outline-dark"
+        variant: "outline-light"
       }, "Search")))), _react.default.createElement("div", {
         className: "main-view"
       }, _react.default.createElement(_reactRouterDom.Route, {
@@ -52401,7 +52407,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51787" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52437" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

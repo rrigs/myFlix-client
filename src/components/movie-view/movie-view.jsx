@@ -47,15 +47,15 @@ export class MovieView extends React.Component {
           <Card.Text>Genre: {movie.Genre.Name}</Card.Text>
           <Card.Text>Director: {movie.Director.Name}</Card.Text>
           <Link to={`/directors/${movie.Director.Name}`}>
-            <Button variant="link">Director</Button>
+            <Button variant="outline-dark" size="sm">Director</Button>
           </Link>
 
           <Link to={`/genres/${movie.Genre.Name}`}>
-            <Button variant="link">Genre</Button>
+            <Button variant="outline-dark" size="sm">Genre</Button>
           </Link>
           <div>
             <Button
-              variant="primary"
+              variant="outline-info"
               size="sm"
               onClick={() => this.addFavorite(movie)}
             >

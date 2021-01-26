@@ -74,8 +74,7 @@ export class DirectorView extends React.Component {
                       <Card.Footer className="bg-white border-top-0">
                         <Link to={`/movies/${movie._id}`}>
                           <Button
-                            variant="link"
-                            className="read-more-link pl-0"
+                            variant="outline-dark"
                           >
                           Read more
                           </Button>  

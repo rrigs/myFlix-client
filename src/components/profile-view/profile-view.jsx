@@ -74,13 +74,13 @@ export class ProfileView extends React.Component {
       });
   }
 
-    handleDelete() {
-        let token = localStorage.getItem("token");
-        let user = localStorage.getItem("user");
+  handleDelete() {
+    let token = localStorage.getItem("token");
+    let user = localStorage.getItem("user");
     axios
-      .delete(
-        `https://my-flix-db-app.herokuapp.com/users/${user}`, { headers: { Authorization: `Bearer ${token}` } }
-      )
+      .delete(`https://my-flix-db-app.herokuapp.com/users/${user}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then(() => {
         alert(user + " has been deleted");
         localStorage.removeItem("user");
@@ -120,32 +120,24 @@ export class ProfileView extends React.Component {
                   <h3>Date of Birth:</h3>
                   <Form.Label>{this.state.dob}</Form.Label>
                 </Form.Group>
-                  <Link to={`/update/${this.state.username}`}>
-                    <Button variant="outline-dark" 
-                            type="link"
-                            size="sm" 
-                            block
-                    >
-                      Edit Profile
-                    </Button>
-                  </Link>
+                <Link to={`/update/${this.state.username}`}>
+                  <Button variant="outline-dark" type="link" size="sm" block>
+                    Edit Profile
+                  </Button>
+                </Link>
                 <Link to={`/`}>
-                  <Button variant="outline-dark" 
-                          type="submit"
-                          size="sm"
-                          block
-                  >
+                  <Button variant="outline-dark" type="submit" size="sm" block>
                     Back to Main
                   </Button>
                 </Link>
-                <Button variant="outline-danger" 
-                        size="sm"
-                        block
-                        onClick={() => this.handleDelete()}
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  block
+                  onClick={() => this.handleDelete()}
                 >
                   Delete Account
                 </Button>
-                
               </Form>
             </Col>
             <Col>
@@ -161,16 +153,22 @@ export class ProfileView extends React.Component {
                 {favoriteMovieList.map((movie) => {
                   return (
                     <div key={movie._id}>
-                          <Card>
-                          <Card.Img variant="top" src={movie.ImagePath} />
-                        <Card.Body>
+                      <Card>
+                        <Card.Img variant="top" src={movie.ImagePath} />
+                              <Card.Body>
+                              <Card.Title>{movie.Title}</Card.Title>
                           <Link to={`/movies/${movie._id}`}>
-                            <Card.Title>{movie.Title}</Card.Title>
+                            <Button variant="dark" size="lg">
+                              More Info
+                            </Button>
                           </Link>
                         </Card.Body>
                       </Card>
-                      <Button onClick={() => this.removeFavorite(movie)}>
-                        Remove
+                      <Button
+                        variant="outline-danger"
+                        onClick={() => this.removeFavorite(movie)}
+                      >
+                        Remove from Favorites
                       </Button>
                     </div>
                   );

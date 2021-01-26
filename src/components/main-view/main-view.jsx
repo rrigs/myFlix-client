@@ -99,8 +99,8 @@ export class MainView extends React.Component {
     return (
       <Router>
         <div>
-          <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar bg="dark" variant="dark" expand="lg">
+            <Navbar.Brand href="#home">myFlix</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
@@ -123,34 +123,36 @@ export class MainView extends React.Component {
               {!user ? (
                 <ul>
                   <Link to={`/`}>
-                    <Button variant="link">login</Button>
+                    <Button variant="outline-light">Login</Button>
                   </Link>
                   <Link to={`/register`}>
-                    <Button variant="link">Register</Button>
+                    <Button variant="outline-light">Register</Button>
                   </Link>
                 </ul>
               ) : (
                 <ul>
                   <Link to={`/`}>
-                    <Button variant="link" onClick={() => this.logOut()}>
+                    <Button variant="outline-light" onClick={() => this.logOut()}>
                       Log out
                     </Button>
                   </Link>
                   <Link to={`/users/${user}`}>
-                    <Button variant="link">Account</Button>
+                    <Button variant="outline-light">Account</Button>
                   </Link>
                   <Link to={`/`}>
-                    <Button variant="link">Movies</Button>
+                    <Button variant="outline-light">Movies</Button>
                   </Link>
-                </ul>
-              )}
+                  </ul>
+                  
+                )}
+              <ul></ul>
               <Form inline>
                 <FormControl
                   type="text"
                   placeholder="Search"
                   className="mr-sm-2"
                 />
-                <Button variant="outline-dark">Search</Button>
+                <Button variant="outline-light">Search</Button>
               </Form>
             </Navbar.Collapse>
           </Navbar>
