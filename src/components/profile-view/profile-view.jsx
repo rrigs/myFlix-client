@@ -102,22 +102,24 @@ export class ProfileView extends React.Component {
 
     if (!movies) alert("Please sign in");
     return (
-      <div className="userProfile" style={{ display: "flex" }}>
+      <div>
         <Container>
           <Row>
             <Col>
               <Form style={{ width: "24rem", float: "left" }}>
                 <h1 style={{ textAlign: "center" }}>Profile Details</h1>
+                <Card className="text-center" border="dark">
+                  <Card.Body>
                 <Form.Group controlId="formBasicUsername">
-                  <h3>Username: </h3>
+                  <h4>Username: </h4>
                   <Form.Label>{this.state.username}</Form.Label>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
-                  <h3>Email:</h3>
+                  <h4>Email:</h4>
                   <Form.Label>{this.state.email}</Form.Label>
                 </Form.Group>
                 <Form.Group controlId="formBasicDate">
-                  <h3>Date of Birth:</h3>
+                  <h4>Date of Birth:</h4>
                   <Form.Label>{this.state.dob}</Form.Label>
                 </Form.Group>
                 <Link to={`/update/${this.state.username}`}>
@@ -131,49 +133,45 @@ export class ProfileView extends React.Component {
                   </Button>
                 </Link>
                 <Button
-                  variant="outline-danger"
+                  variant="danger"
                   size="sm"
                   block
                   onClick={() => this.handleDelete()}
                 >
-                  Delete Account
+                      Delete Account
                 </Button>
+                    </Card.Body>
+                  </Card>
               </Form>
             </Col>
             <Col>
-              <div
-                className="favoriteMovies"
-                style={{
-                  float: "right",
-                  textAlign: "center",
-                  width: "24rem",
-                }}
-              >
-                <h1>Favorite Movies</h1>
+                <h1 style={{ textAlign: "center" }}>Favorite Movies</h1>
                 {favoriteMovieList.map((movie) => {
                   return (
                     <div key={movie._id}>
-                      <Card>
+                      <Card className="text-center" border="dark">
                         <Card.Img variant="top" src={movie.ImagePath} />
-                              <Card.Body>
-                              <Card.Title>{movie.Title}</Card.Title>
+                        <Card.Body>
+                          <Card.Title>{movie.Title}</Card.Title>
                           <Link to={`/movies/${movie._id}`}>
-                            <Button variant="dark" size="lg">
+                            <Button variant="dark" size="sm">
                               More Info
                             </Button>
                           </Link>
-                        </Card.Body>
-                      </Card>
-                      <Button
-                        variant="outline-danger"
+                          <Card.Body>
+                          <Button
+                        variant="danger" size="sm"
                         onClick={() => this.removeFavorite(movie)}
                       >
-                        Remove from Favorites
+                              Remove from Favorites
                       </Button>
+                            </Card.Body>
+                        </Card.Body>
+                      </Card>
                     </div>
                   );
                 })}
-              </div>
+              {/* </div> */}
             </Col>
           </Row>
         </Container>

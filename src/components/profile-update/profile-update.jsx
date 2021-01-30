@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Card } from "react-bootstrap";
 
 export function ProfileUpdate(props) {
   const [username, setUsername] = useState("");
@@ -84,79 +85,83 @@ export function ProfileUpdate(props) {
 
   return (
     <Container>
-      <h1>Update your account</h1>
-      <Form className="registration-form">
-        <Form.Group controlId="formBasicUsername">
-          <Form.Label>Username:</Form.Label>
-          <Form.Control
-            type="text"
-            value={username}
-            placeholder="Enter username"
-            required
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          {Object.keys(usernameErr).map((key) => {
-            return (
-              <div key={key} style={{ color: "red" }}>
-                {usernameErr[key]}
-              </div>
-            );
-          })}
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control
-            type="password"
-            value={password}
-            placeholder="Enter password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {Object.keys(passwordErr).map((key) => {
-            return (
-              <div key={key} style={{ color: "red" }}>
-                {passwordErr[key]}
-              </div>
-            );
-          })}
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Birth Date:</Form.Label>
-          <Form.Control
-            type="date"
-            value={birthday}
-            placeholder="Select Birthday"
-            required
-            onChange={(e) => setBirthday(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email:</Form.Label>
-          <Form.Control
-            type="email"
-            value={email}
-            placeholder="name@example.com"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {Object.keys(emailErr).map((key) => {
-            return (
-              <div key={key} style={{ color: "red" }}>
-                {emailErr[key]}
-              </div>
-            );
-          })}
-        </Form.Group>
-        <Link to={`/users/`}>
-          <Button
-            variant="btn-lg btn-dark btn-block"
-            type="submit"
-            onClick={handleUpdate}
-          >
-            Update
-          </Button>
-        </Link>
-      </Form>
+      <h1 style={{ textAlign: "center" }}>Update Your Account</h1>
+      <Card border="dark">
+        <Card.Body>
+          <Form>
+            <Form.Group controlId="formBasicUsername">
+              <Form.Label>Username:</Form.Label>
+              <Form.Control
+                type="text"
+                value={username}
+                placeholder="Enter username"
+                required
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              {Object.keys(usernameErr).map((key) => {
+                return (
+                  <div key={key} style={{ color: "red" }}>
+                    {usernameErr[key]}
+                  </div>
+                );
+              })}
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password:</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                placeholder="Enter password"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {Object.keys(passwordErr).map((key) => {
+                return (
+                  <div key={key} style={{ color: "red" }}>
+                    {passwordErr[key]}
+                  </div>
+                );
+              })}
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Birth Date:</Form.Label>
+              <Form.Control
+                type="date"
+                value={birthday}
+                placeholder="Select Birthday"
+                required
+                onChange={(e) => setBirthday(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                placeholder="name@example.com"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {Object.keys(emailErr).map((key) => {
+                return (
+                  <div key={key} style={{ color: "red" }}>
+                    {emailErr[key]}
+                  </div>
+                );
+              })}
+            </Form.Group>
+            <Link to={`/users/`}>
+              <Button
+                variant="btn-lg btn-dark"
+                type="submit"
+                onClick={handleUpdate}
+              >
+                Update
+              </Button>
+            </Link>
+          </Form>
+        </Card.Body>
+      </Card>
     </Container>
   );
 }

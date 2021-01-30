@@ -1,7 +1,10 @@
 import React from "react";
 import axios from "axios";
+import MoviesList from '../movies-list/movies-list';
+import VisibilityFilterInput from "../visibility-filter-input/visibility-filter-input";
+import { connect } from 'react-redux';
+import { setMovies } from '../../actions/actions';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
@@ -22,13 +25,10 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
   constructor() {
-    // Call the superclass constructor
-    // so React can initialize it
     super();
 
-    // Initialize the state to an empty object so we can destructure it later
     this.state = {
       movies: [],
       selectedMovie: "",
@@ -42,10 +42,11 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
+        this.props.setMovies(response.data);
         //Assign the result to the state
-        this.setState({
-          movies: response.data,
-        });
+        // this.setState({
+        //   movies: response.data,
+        // });
       })
       .catch(function (error) {
         console.log(error);
@@ -92,7 +93,9 @@ export class MainView extends React.Component {
   render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
-    const { movies, selectedMovie, user } = this.state;
+    // const { movies, selectedMovie, user } = this.state;
+    let { movies, visibilityFilter } = this.props;
+    let { user } = this.state;
 
     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
 
@@ -100,27 +103,11 @@ export class MainView extends React.Component {
       <Router>
         <div>
           <Navbar bg="dark" variant="dark" expand="lg">
-            <Navbar.Brand href="#home">myFlix</Navbar.Brand>
+            <Navbar.Brand>myFlix</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#link">Link</Nav.Link>
-                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">
-                    Something
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">
-                    Separated link
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </Nav>
-              {!user ? (
+                {!user ? (
                 <ul>
                   <Link to={`/`}>
                     <Button variant="outline-light">Login</Button>
@@ -145,14 +132,10 @@ export class MainView extends React.Component {
                   </ul>
                   
                 )}
+              </Nav>
               <ul></ul>
               <Form inline>
-                <FormControl
-                  type="text"
-                  placeholder="Search"
-                  className="mr-sm-2"
-                />
-                <Button variant="outline-light">Search</Button>
+                <VisibilityFilterInput variant="outline-light" visibilityFilter={visibilityFilter} />
               </Form>
             </Navbar.Collapse>
           </Navbar>
@@ -165,7 +148,7 @@ export class MainView extends React.Component {
                   return (
                     <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                   );
-                return movies.map((m) => <MovieCard key={m._id} movie={m} />);
+                return <MoviesList movies={movies}/>;
               }}
             />
             <Route
@@ -223,3 +206,9 @@ export class MainView extends React.Component {
     );
   }
 }
+
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies } )(MainView);

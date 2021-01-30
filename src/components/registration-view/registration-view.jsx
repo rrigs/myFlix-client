@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
+import { Form, Button, Container, Card } from 'react-bootstrap';
 import './registration-view.scss';
 import axios from 'axios';
 
@@ -34,10 +32,9 @@ export function RegistrationView(props) {
 
   return (
     <Container>
-      <div className="register-heading">
-      <h2>Create an account</h2>
-      </div>
-      <br />
+      <h1 style={{ textAlign: "center" }}>Create an Account</h1>
+      <Card border="dark">
+        <Card.Body>
       <Form className="registration-form">
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Pick a Username: </Form.Label>
@@ -51,7 +48,7 @@ export function RegistrationView(props) {
           />
           <Form.Text 
             className="text-muted"
-            >Must be alphanumeric and contain at least 5 characters
+            >Must be alphanumeric and contain at least 5 characters.
           </Form.Text>
         </Form.Group>
 
@@ -106,7 +103,9 @@ export function RegistrationView(props) {
         >
           Submit
         </Button>
-      </Form>
+          </Form>
+          </Card.Body>
+        </Card>
     </Container>
   )
 };
