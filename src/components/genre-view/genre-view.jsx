@@ -21,22 +21,18 @@ export class GenreView extends React.Component {
 
     return (
       <Container className="wrapper container-fluid">
-      <Row>
-        <Col className="col-3" />
-        <Col className="genre-view container-fluid align-items-center col-6">
-          <div className="genre-title ">
-            {/* <span className="label">Name: </span> */}
-            <span className="value">{genre.Genre.Name}</span>
-          </div>
-          <div className="genre-description ">
-            {/* <span className="label">Description: </span> */}
-            <span className="value">{genre.Genre.Description}</span>
-          </div>
+        <Row>
+          <Card className="text-center" border="dark">
+              <Card.Title>{genre.Genre.Name}</Card.Title>
+              <Card.Body>
+          {genre.Genre.Description}
+            </Card.Body>
+            <Card.Body>
           <Link to={`/`}>
-            <Button variant="link">Return</Button>
-          </Link>
-        </Col>
-        <Col className="col-3" />
+            <Button variant="outline-dark" size="sm">Return</Button>
+              </Link>
+              </Card.Body>
+            </Card>
             </Row>
             <Container>
         <h4 className="mt-4">Some {genre.Genre.Name} movies</h4>
@@ -46,30 +42,26 @@ export class GenreView extends React.Component {
               return (
                 <div key={movie._id}>
                   <Card
-                    className="mb-3 mr-2 h-100"
+                    border="dark"
+                    className="text-center"
                     style={{ width: '16rem' }}
                   >
                     <Card.Img variant="top" src={movie.ImagePath} />
                     <Card.Body>
-                      <Link
-                        className="text-muted"
-                        to={`/movies/${movie._id}`}
-                      >
-                        <Card.Title>{movie.Title}</Card.Title>
-                      </Link>
+                      <Card.Title>{movie.Title}</Card.Title>
                       <Card.Text>
                         {movie.Description.substring(0, 90)}...
                       </Card.Text>
                     </Card.Body>
-                    <Card.Footer className="bg-white border-top-0">
+                    <Card.Body>
                       <Link to={`/movies/${movie._id}`}>
                         <Button
-                          variant="outline-dark"
+                          variant="dark"
                         >
-                          Read more
+                          More Info
                         </Button>
                       </Link>
-                    </Card.Footer>
+                      </Card.Body>
                   </Card>
                 </div>
               );
