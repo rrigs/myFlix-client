@@ -24,29 +24,24 @@ export class DirectorView extends React.Component {
     return (
       <Container className="wrapper container-fluid">
         <Row>
-          <Col className="col-3" />
-          <Col className="director-view container-fluid align-items-center col-6">
-            <div className="director-title">
-              <span className="label">Name: </span>
-              <span className="value">{director.Director.Name}</span>
-            </div>
-            <div className="director-bio">
-              <span className="label">Bio: </span>
-              <span className="value">{director.Director.Bio}</span>
-            </div>
-            <div className="director-birth">
-              <span className="label">Born:  </span>
-              <span className="value">{director.Director.Birth}</span>
-            </div>
-            <div className="director-death">
-              <span className="label">Died:  </span>
-              <span className="value">{director.Director.Death}</span>
-            </div>
-            <Link to={`/`}>
-              <Button variant="link">Return</Button>
-            </Link>
-          </Col>
-          <Col className="col-3" />
+          <Card className="text-center" border="dark">
+              <Card.Title>{director.Director.Name}</Card.Title>
+            <Card.Body>
+              <Card.Subtitle>Bio: </Card.Subtitle>
+              <Card.Text>{director.Director.Bio}</Card.Text>
+              <Card.Subtitle>Birth: </Card.Subtitle>
+              <Card.Text>{director.Director.Birth}</Card.Text>
+              <Card.Subtitle>Died: </Card.Subtitle>
+              <Card.Text>{director.Director.Death}</Card.Text>
+            </Card.Body>
+            <Card.Body>
+          <Link to={`/`}>
+            <Button variant="outline-dark" size="sm">Return</Button>
+              </Link>
+              </Card.Body>
+          </Card>
+          <Card.Body>
+          </Card.Body>
             </Row>
             <Container>
           <h4 className="mt-4">Some {director.Director.Name} movies</h4>
@@ -56,30 +51,26 @@ export class DirectorView extends React.Component {
                 return (
                   <div key={movie._id}>
                     <Card
-                      className="mb-3 mr-2 h-100"
+                      border="dark"
+                      className="text-center"
                       style={{ width: '16rem' }}
                     >
                       <Card.Img variant="top" src={movie.ImagePath} />
                       <Card.Body>
-                        <Link
-                          className="text-muted"
-                          to={`/movies/${movie._id}`}
-                        >
-                          <Card.Title>{movie.Title}</Card.Title>
-                        </Link>
+                        <Card.Title>{movie.Title}</Card.Title>
                         <Card.Text>
-                          {movie.Description.substring(0, 90)}...
-                        </Card.Text>
+                        {movie.Description.substring(0, 90)}...
+                      </Card.Text>
                       </Card.Body>
-                      <Card.Footer className="bg-white border-top-0">
-                        <Link to={`/movies/${movie._id}`}>
-                          <Button
-                            variant="outline-dark"
-                          >
-                          Read more
-                          </Button>  
-                        </Link>
-                      </Card.Footer>
+                      <Card.Body>
+                      <Link to={`/movies/${movie._id}`}>
+                        <Button
+                          variant="dark"
+                        >
+                          More Info
+                        </Button>
+                      </Link>
+                      </Card.Body>
                     </Card>
                   </div>
                 );
