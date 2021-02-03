@@ -53884,11 +53884,7 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
-var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
-
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
-var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
+var _reactBootstrap = require("react-bootstrap");
 
 require("./registration-view.scss");
 
@@ -53936,7 +53932,7 @@ function RegistrationView(props) {
   var handleRegister = function handleRegister(e) {
     e.preventDefault();
 
-    _axios.default.post('https://flixnet-2020.herokuapp.com/users', {
+    _axios.default.post('https://my-flix-db-app.herokuapp.com/users', {
       Username: username,
       Password: password,
       Email: email,
@@ -53952,13 +53948,17 @@ function RegistrationView(props) {
     });
   };
 
-  return _react.default.createElement(_Container.default, null, _react.default.createElement("div", {
-    className: "register-heading"
-  }, _react.default.createElement("h2", null, "Create an account")), _react.default.createElement("br", null), _react.default.createElement(_Form.default, {
+  return _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement("h1", {
+    style: {
+      textAlign: "center"
+    }
+  }, "Create an Account"), _react.default.createElement(_reactBootstrap.Card, {
+    border: "dark"
+  }, _react.default.createElement(_reactBootstrap.Card.Body, null, _react.default.createElement(_reactBootstrap.Form, {
     className: "registration-form"
-  }, _react.default.createElement(_Form.default.Group, {
+  }, _react.default.createElement(_reactBootstrap.Form.Group, {
     controlId: "formBasicUsername"
-  }, _react.default.createElement(_Form.default.Label, null, "Pick a Username: "), _react.default.createElement(_Form.default.Control, {
+  }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Pick a Username: "), _react.default.createElement(_reactBootstrap.Form.Control, {
     className: "form-field",
     type: "text",
     placeholder: "Username",
@@ -53967,37 +53967,37 @@ function RegistrationView(props) {
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     }
-  }), _react.default.createElement(_Form.default.Text, {
+  }), _react.default.createElement(_reactBootstrap.Form.Text, {
     className: "text-muted"
-  }, "Must be alphanumeric and contain at least 5 characters")), _react.default.createElement(_Form.default.Group, {
+  }, "Must be alphanumeric and contain at least 5 characters.")), _react.default.createElement(_reactBootstrap.Form.Group, {
     controlId: "formBasicPassword"
-  }, _react.default.createElement(_Form.default.Label, null, "Choose a Password: "), _react.default.createElement(_Form.default.Control, {
+  }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Choose a Password: "), _react.default.createElement(_reactBootstrap.Form.Control, {
     className: "form-field",
-    type: "text",
+    type: "password",
     placeholder: "Password",
     required: true,
     "value-": password,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     }
-  }), _react.default.createElement(_Form.default.Text, {
+  }), _react.default.createElement(_reactBootstrap.Form.Text, {
     className: "text-muted"
-  }, "Password is required.")), _react.default.createElement(_Form.default.Group, {
+  }, "Password is required.")), _react.default.createElement(_reactBootstrap.Form.Group, {
     controlId: "formBasicEmail"
-  }, _react.default.createElement(_Form.default.Label, null, "Enter Email Address: "), _react.default.createElement(_Form.default.Control, {
+  }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Enter Email Address: "), _react.default.createElement(_reactBootstrap.Form.Control, {
     className: "form-field",
-    type: "text",
+    type: "email",
     placeholder: "example@gmail.com",
     required: true,
     value: email,
     onChange: function onChange(e) {
       return setEmail(e.target.value);
     }
-  }), _react.default.createElement(_Form.default.Text, {
+  }), _react.default.createElement(_reactBootstrap.Form.Text, {
     className: "text-muted"
-  }, "Must be a valid email address.")), _react.default.createElement(_Form.default.Group, {
+  }, "Must be a valid email address.")), _react.default.createElement(_reactBootstrap.Form.Group, {
     controlId: "formBasicBirthday"
-  }, _react.default.createElement(_Form.default.Label, null, "Enter Date of Birth:"), _react.default.createElement(_Form.default.Control, {
+  }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Enter Date of Birth:"), _react.default.createElement(_reactBootstrap.Form.Control, {
     className: "form-field",
     type: "date",
     placeholder: "MM/DD/YYYY",
@@ -54006,21 +54006,132 @@ function RegistrationView(props) {
     onChange: function onChange(e) {
       return setBirthday(e.target.value);
     }
-  })), _react.default.createElement(_Button.default, {
+  })), _react.default.createElement(_reactBootstrap.Button, {
     type: "submit",
-    variant: "dark",
+    variant: "outline-dark",
     className: "sign-in-button",
     onClick: handleRegister
   }, "Submit"), _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
-  }, _react.default.createElement(_Button.default, {
-    variant: "secondary",
+  }, _react.default.createElement(_reactBootstrap.Button, {
+    variant: "dark",
     className: "sign-up-button existing-user"
-  }, "Existing User Sign In"))));
+  }, "Existing User Sign In"))))));
 }
 
-;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","./registration-view.scss":"components/registration-view/registration-view.scss","axios":"../node_modules/axios/index.js"}],"components/director-view/director-view.scss":[function(require,module,exports) {
+; // import React, { useState } from 'react';
+// // import PropTypes from 'prop-types';
+// import { Link } from 'react-router-dom';
+// import Form from 'react-bootstrap/Form';
+// import Button from 'react-bootstrap/Button';
+// import Container from 'react-bootstrap/Container';
+// import './registration-view.scss';
+// import axios from 'axios';
+// export function RegistrationView(props) {
+//   const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [email, setEmail] = useState('');
+//   const [birthday, setBirthday] = useState('');
+//   const handleRegister = (e) => {
+//     e.preventDefault();
+//     axios.post('https://my-flix-db-app.herokuapp.com/users', {
+//       Username: username,
+//       Password: password,
+//       Email: email,
+//       Birthday: birthday
+//     })
+//     .then(response => {
+//       const data = response.data;
+//       console.log(data);
+//       window.open('/', '_self'); // '_self' is necessary so the page will open in the current tab
+//       alert('You may now log in');
+//     })
+//     .catch(e => {
+//       console.log('error registering the user')
+//     });
+//   };
+//   return (
+//     <Container>
+//       <div className="register-heading">
+//       <h2>Create an account</h2>
+//       </div>
+//       <br />
+//       <Form className="registration-form">
+//         <Form.Group controlId="formBasicUsername">
+//           <Form.Label>Pick a Username: </Form.Label>
+//           <Form.Control 
+//             className="form-field"
+//             type="text" 
+//             placeholder="Username" 
+//             required
+//             value={username} 
+//             onChange={(e) => setUsername(e.target.value)} 
+//           />
+//           <Form.Text 
+//             className="text-muted"
+//             >Must be alphanumeric and contain at least 5 characters
+//           </Form.Text>
+//         </Form.Group>
+//         <Form.Group controlId="formBasicPassword">
+//           <Form.Label>Choose a Password: </Form.Label>
+//           <Form.Control 
+//             className="form-field"
+//             type="text" 
+//             placeholder="Password" 
+//             required
+//             value-={password} 
+//             onChange={(e) => setPassword(e.target.value)} 
+//           />
+//           <Form.Text 
+//             className="text-muted"
+//           >Password is required.
+//           </Form.Text>
+//         </Form.Group>
+//         <Form.Group controlId="formBasicEmail">
+//           <Form.Label>Enter Email Address: </Form.Label>
+//           <Form.Control 
+//             className="form-field"
+//             type="text" 
+//             placeholder="example@gmail.com" 
+//             required
+//             value={email} 
+//             onChange={(e) => setEmail(e.target.value)} 
+//           />
+//           <Form.Text 
+//             className="text-muted"
+//           >Must be a valid email address.
+//           </Form.Text>
+//         </Form.Group>
+//         <Form.Group controlId="formBasicBirthday">
+//           <Form.Label>Enter Date of Birth:</Form.Label>
+//           <Form.Control 
+//             className="form-field"
+//             type="date" 
+//             placeholder="MM/DD/YYYY" 
+//             required
+//             value={birthday} 
+//             onChange={(e) => setBirthday(e.target.value)} 
+//           />
+//         </Form.Group>
+//         <Button type="submit" 
+//                 variant="dark" 
+//                 className="sign-in-button" 
+//                 onClick={handleRegister}
+//         >
+//           Submit
+//         </Button>
+//         <Link to={`/`}>
+//           <Button 
+//             variant="secondary"
+//             className="sign-up-button existing-user"
+//           >
+//             Existing User Sign In</Button>
+//         </Link>
+//       </Form>
+//     </Container>
+//   )
+// };
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./registration-view.scss":"components/registration-view/registration-view.scss","axios":"../node_modules/axios/index.js"}],"components/director-view/director-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -54551,7 +54662,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       movies: [],
       selectedMovie: "",
-      user: ""
+      user: null
     };
     return _this;
   }
@@ -54932,7 +55043,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62958" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51277" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
