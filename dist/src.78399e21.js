@@ -53884,7 +53884,11 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
-var _reactBootstrap = require("react-bootstrap");
+var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
+
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
+var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
 
 require("./registration-view.scss");
 
@@ -53932,7 +53936,7 @@ function RegistrationView(props) {
   var handleRegister = function handleRegister(e) {
     e.preventDefault();
 
-    _axios.default.post('https://my-flix-db-app.herokuapp.com/users', {
+    _axios.default.post('https://flixnet-2020.herokuapp.com/users', {
       Username: username,
       Password: password,
       Email: email,
@@ -53948,17 +53952,13 @@ function RegistrationView(props) {
     });
   };
 
-  return _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement("h1", {
-    style: {
-      textAlign: "center"
-    }
-  }, "Create an Account"), _react.default.createElement(_reactBootstrap.Card, {
-    border: "dark"
-  }, _react.default.createElement(_reactBootstrap.Card.Body, null, _react.default.createElement(_reactBootstrap.Form, {
+  return _react.default.createElement(_Container.default, null, _react.default.createElement("div", {
+    className: "register-heading"
+  }, _react.default.createElement("h2", null, "Create an account")), _react.default.createElement("br", null), _react.default.createElement(_Form.default, {
     className: "registration-form"
-  }, _react.default.createElement(_reactBootstrap.Form.Group, {
+  }, _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicUsername"
-  }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Pick a Username: "), _react.default.createElement(_reactBootstrap.Form.Control, {
+  }, _react.default.createElement(_Form.default.Label, null, "Pick a Username: "), _react.default.createElement(_Form.default.Control, {
     className: "form-field",
     type: "text",
     placeholder: "Username",
@@ -53967,11 +53967,11 @@ function RegistrationView(props) {
     onChange: function onChange(e) {
       return setUsername(e.target.value);
     }
-  }), _react.default.createElement(_reactBootstrap.Form.Text, {
+  }), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
-  }, "Must be alphanumeric and contain at least 5 characters.")), _react.default.createElement(_reactBootstrap.Form.Group, {
+  }, "Must be alphanumeric and contain at least 5 characters")), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicPassword"
-  }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Choose a Password: "), _react.default.createElement(_reactBootstrap.Form.Control, {
+  }, _react.default.createElement(_Form.default.Label, null, "Choose a Password: "), _react.default.createElement(_Form.default.Control, {
     className: "form-field",
     type: "text",
     placeholder: "Password",
@@ -53980,11 +53980,11 @@ function RegistrationView(props) {
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     }
-  }), _react.default.createElement(_reactBootstrap.Form.Text, {
+  }), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
-  }, "Password is required.")), _react.default.createElement(_reactBootstrap.Form.Group, {
+  }, "Password is required.")), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicEmail"
-  }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Enter Email Address: "), _react.default.createElement(_reactBootstrap.Form.Control, {
+  }, _react.default.createElement(_Form.default.Label, null, "Enter Email Address: "), _react.default.createElement(_Form.default.Control, {
     className: "form-field",
     type: "text",
     placeholder: "example@gmail.com",
@@ -53993,11 +53993,11 @@ function RegistrationView(props) {
     onChange: function onChange(e) {
       return setEmail(e.target.value);
     }
-  }), _react.default.createElement(_reactBootstrap.Form.Text, {
+  }), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
-  }, "Must be a valid email address.")), _react.default.createElement(_reactBootstrap.Form.Group, {
+  }, "Must be a valid email address.")), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicBirthday"
-  }, _react.default.createElement(_reactBootstrap.Form.Label, null, "Enter Date of Birth:"), _react.default.createElement(_reactBootstrap.Form.Control, {
+  }, _react.default.createElement(_Form.default.Label, null, "Enter Date of Birth:"), _react.default.createElement(_Form.default.Control, {
     className: "form-field",
     type: "date",
     placeholder: "MM/DD/YYYY",
@@ -54006,16 +54006,21 @@ function RegistrationView(props) {
     onChange: function onChange(e) {
       return setBirthday(e.target.value);
     }
-  })), _react.default.createElement(_reactBootstrap.Button, {
+  })), _react.default.createElement(_Button.default, {
     type: "submit",
     variant: "dark",
     className: "sign-in-button",
     onClick: handleRegister
-  }, "Submit")))));
+  }, "Submit"), _react.default.createElement(_reactRouterDom.Link, {
+    to: "/"
+  }, _react.default.createElement(_Button.default, {
+    variant: "secondary",
+    className: "sign-up-button existing-user"
+  }, "Existing User Sign In"))));
 }
 
 ;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./registration-view.scss":"components/registration-view/registration-view.scss","axios":"../node_modules/axios/index.js"}],"components/director-view/director-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","./registration-view.scss":"components/registration-view/registration-view.scss","axios":"../node_modules/axios/index.js"}],"components/director-view/director-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -54927,11 +54932,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-<<<<<<< HEAD
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58822" + '/');
-=======
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54783" + '/');
->>>>>>> e21b39bc6d5fc990cf9035b83100490badeef8f2
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62958" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
